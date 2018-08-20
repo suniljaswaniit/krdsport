@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlayersTable extends Migration
+class CreateAdminsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,13 @@ class CreatePlayersTable extends Migration
      */
     public function up()
     {
-        Schema::create('players', function (Blueprint $table){
+        Schema::create('admins', function (Blueprint $table) {
             $table->increments('id');
             $table->string('firstname', 50);
             $table->string('lastname', 50);
-            $table->string('email', 100)->nullable()->unique();
-            $table->date('dob');
+            $table->string('email', 100)->unique();
             $table->string('mobile', 50);
-            $table->string('aadhar_number', 100);
-            $table->tinyInteger('eligibility_status')->default(1)->comment('1: Eligible, 2: Not Eligible');
-            $table->tinyInteger('gender')->comment('1: male, 2: female');
+            $table->tinyInteger('status')->default(1)->comment('1: Activate, 2: De-Activate');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +31,6 @@ class CreatePlayersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('players');
+        Schema::drop('admins');
     }
 }

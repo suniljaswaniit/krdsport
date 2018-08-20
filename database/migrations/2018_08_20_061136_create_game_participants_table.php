@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlayerEduTable extends Migration
+class CreateGameParticipantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,18 +12,14 @@ class CreatePlayerEduTable extends Migration
      */
     public function up()
     {
-        Schema::create('player_edu', function (Blueprint $table){
+        Schema::create('game_participants', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('ref_player_id')->unsigned();
-            $table->integer('hsc_pass_year')->unsigned();
-            $table->integer('college_started_year')->unsigned();
-            $table->tinyInteger('current_college_year');
-            $table->tinyInteger('total_college_year');
-            $table->string('current_roll_no');
-            $table->string('college_stream');
+            $table->integer('ref_game_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('ref_player_id')->references('id')->on('players');
+            $table->foreign('ref_game_id')->references('id')->on('games');
         });
     }
 
@@ -34,6 +30,6 @@ class CreatePlayerEduTable extends Migration
      */
     public function down()
     {
-        Schema::drop('player_edu');
+        Schema::drop('game_participants');
     }
 }
